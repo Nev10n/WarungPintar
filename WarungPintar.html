@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WarungPintar</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fc;--card:#fff;--ink:#1b2a4e;--mute:#5f6d8c;--line:#d6dff0;--rule:#d3def5;--margin:#e0525e;--acc:#24408f;--on:#fff;--hi:#fff0a3;--ok:#17734a;--okbg:#dff3e8;--warn:#8a5300;--warnbg:#ffeccb;--bad:#a8222c;--badbg:#fde1e3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1730;--card:#172142;--ink:#e7edfb;--mute:#9aa8c8;--line:#2a3860;--rule:#26335a;--margin:#ff7c87;--acc:#8fb0ff;--on:#0f1730;--hi:#5a4d12;--ok:#6fdca4;--okbg:#173a2b;--warn:#ffc46b;--warnbg:#41300f;--bad:#ff9aa1;--badbg:#43191d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1730;--card:#172142;--ink:#e7edfb;--mute:#9aa8c8;--line:#2a3860;--rule:#26335a;--margin:#ff7c87;--acc:#8fb0ff;--on:#0f1730;--hi:#5a4d12;--ok:#6fdca4;--okbg:#173a2b;--warn:#ffc46b;--warnbg:#41300f;--bad:#ff9aa1;--badbg:#43191d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+[hidden]{display:none!important}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1,h2,h3{font-family:Kalam,"Segoe Print","Bradley Hand",cursive;margin:0}
+h1{font-size:32px;line-height:1.1}
+h2{font-size:21px;margin-bottom:8px}
+h3{font-size:18px;margin:14px 0 4px}
+.sub,.mute{color:var(--mute);font-size:14px}
+.sub{margin:4px 0 16px;font-size:15px}
+nav{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:18px}
+nav button{background:none;border:0;border-bottom:3px solid transparent;color:var(--mute);font:inherit;padding:10px 14px;cursor:pointer}
+nav button.on{color:var(--ink);font-weight:600;border-bottom-color:var(--margin)}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px}
+.pad{width:100%;height:132px;resize:vertical;border:1px solid var(--line);border-radius:6px;padding:0 12px 0 56px;font:400 19px/32px Kalam,"Segoe Print","Bradley Hand",cursive;color:var(--ink);background:linear-gradient(90deg,transparent 42px,var(--margin) 42px,var(--margin) 44px,transparent 44px),repeating-linear-gradient(var(--card) 0 31px,var(--rule) 31px 32px);background-attachment:local}
+button{font:inherit;cursor:pointer;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 14px}
+button.pri{background:var(--acc);color:var(--on);border-color:var(--acc);font-weight:600}
+button.sm{padding:3px 10px;font-size:14px}
+.acts,.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips button{font-size:14px;color:var(--mute);border-radius:16px;padding:4px 12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px dashed var(--line)}
+.row:first-of-type{border-top:0}
+.qty{display:flex;align-items:center;gap:8px}
+.amt{min-width:92px;text-align:right}
+.end{text-align:right}
+.msg{color:var(--ok);font-weight:600;margin:12px 0 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.stat b{display:block;font-size:19px}
+.chart{display:flex;align-items:flex-end;gap:8px;height:150px;margin-top:8px}
+.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12px;color:var(--mute);gap:3px}
+.bar{width:100%;background:var(--acc);border-radius:4px 4px 0 0;min-height:2px}
+.col.t .bar{background:var(--margin)}
+.tb{height:8px;background:var(--acc);border-radius:4px;margin-top:4px}
+.top{padding:8px 0}
+.top div:first-child{display:flex;justify-content:space-between}
+.bd{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:10px}
+.b-ok{background:var(--okbg);color:var(--ok)}.b-warn{background:var(--warnbg);color:var(--warn)}.b-bad{background:var(--badbg);color:var(--bad)}
+.mark{background:linear-gradient(transparent 55%,var(--hi) 55%);font-weight:600}
+.sum{margin:0 0 10px}
+footer{color:var(--mute);font-size:13px;margin-top:20px}
+footer button{border:0;background:none;color:var(--mute);text-decoration:underline;padding:0}
+</style></head>
+<body><main>
+<h1>🏪 WarungPintar</h1>
+<p class="sub">Catat penjualan semudah ngobrol, stok dan laporan diurus otomatis.</p>
+<nav>
+<button id="t-catat" class="on" onclick="tab('catat')">Catat</button>
+<button id="t-dasbor" onclick="tab('dasbor')">Dasbor</button>
+<button id="t-stok" onclick="tab('stok')">Stok</button>
+</nav>
+
+<section id="catat">
+<div class="card">
+<h2>Tadi laku apa saja?</h2>
+<textarea id="inp" class="pad" aria-label="Catatan penjualan" placeholder="tadi laku 5 telur, 2 minyak goreng, 3 indomie"></textarea>
+<div class="chips">
+<button onclick="isi('tadi laku 5 telur, 2 minyak goreng, 3 indomie')">Contoh 1</button>
+<button onclick="isi('jual 1 beras, dua gula dan 4 kopi')">Contoh 2</button>
+</div>
+<div class="acts"><button class="pri" onclick="proses()">Proses catatan</button><button id="mic" onclick="mic()">🎤 Bicara</button></div>
+<div id="draft"></div>
+</div>
+<div class="card"><h2>Tercatat hari ini</h2><div id="log"></div></div>
+</section>
+
+<section id="dasbor" hidden>
+<div class="stats" id="stats"></div>
+<div class="card"><h2>Omzet 7 hari terakhir</h2><div class="chart" id="chart"></div></div>
+<div class="card"><h2>Barang terlaris minggu ini</h2><div id="top"></div></div>
+<div class="card"><h2>Ringkasan mingguan</h2><p class="sum" id="sum"></p><button onclick="salin()" id="cp">Salin ringkasan</button></div>
+</section>
+
+<section id="stok" hidden>
+<div class="card"><h2>Stok dan saran belanja</h2><p class="mute" style="margin:0 0 6px">Saran dihitung dari rata-rata penjualan harian, untuk cukup 7 hari.</p><div id="stokList"></div></div>
+</section>
+
+<footer>Prototipe hackathon dengan data contoh. <button onclick="reset()">Reset data hari ini</button></footer>
+</main>
+<script>
+const P=[
+{id:'telur',n:'Telur',u:'butir',h:2500,m:2100,s:140,hist:[28,30,26,35,32,40,31],al:['telur','telor']},
+{id:'minyak',n:'Minyak goreng 1L',u:'liter',h:18000,m:16500,s:9,hist:[4,5,3,6,5,7,4],al:['minyak']},
+{id:'gula',n:'Gula 1 kg',u:'kg',h:17000,m:15500,s:26,hist:[3,2,4,3,5,4,3],al:['gula']},
+{id:'beras',n:'Beras 5 kg',u:'sak',h:68000,m:63000,s:6,hist:[1,2,1,2,3,2,1],al:['beras']},
+{id:'mie',n:'Mie instan',u:'bungkus',h:3500,m:3000,s:120,hist:[15,18,14,20,19,25,16],al:['mie','indomie','mi instan']},
+{id:'kopi',n:'Kopi sachet',u:'sachet',h:1500,m:1200,s:25,hist:[20,24,18,22,26,30,21],al:['kopi']},
+{id:'air',n:'Air mineral',u:'botol',h:4000,m:3000,s:70,hist:[8,10,7,12,11,14,9],al:['air','aqua']}];
+const NUM={satu:1,dua:2,tiga:3,empat:4,lima:5,enam:6,tujuh:7,delapan:8,sembilan:9,sepuluh:10};
+const KEY='warungpintar-v1',td=new Date().toDateString();
+let S={day:td,sold:{},restock:{},log:[]},draft=null,msg='';
+try{const r=localStorage.getItem(KEY);if(r){const o=JSON.parse(r);if(o&&o.day===td)S=o}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const rp=n=>'Rp'+Math.round(n).toLocaleString('id-ID');
+const prod=id=>P.find(p=>p.id===id);
+const sold=p=>S.sold[p.id]||0;
+const stock=p=>p.s+(S.restock[p.id]||0)-sold(p);
+const wkQty=p=>p.hist.slice(1).reduce((a,b)=>a+b,0)+sold(p);
+function info(p){const a=p.hist.reduce((x,y)=>x+y,0)/7,s=Math.max(0,stock(p)),d=s/a;let rec=Math.max(0,Math.ceil(a*7-s));if(rec>20)rec=Math.ceil(rec/10)*10;
+return{s,d,rec,st:d<2?['bad','Segera habis']:d<4?['warn','Menipis']:['ok','Aman']}}
+
+function parse(t){const m={};
+for(const s of t.toLowerCase().split(/,|;|\n|\+|\bdan\b/)){
+const p=P.find(p=>p.al.some(a=>new RegExp('\\b'+a+'\\b').test(s)));if(!p)continue;
+let q=1;const d=s.match(/\d+/);
+if(d)q=+d[0];else for(const w in NUM)if(new RegExp('\\b'+w+'\\b').test(s)){q=NUM[w];break}
+m[p.id]=(m[p.id]||0)+q}
+return Object.keys(m).map(id=>({id,q:m[id]}))}
+
+function tab(n){['catat','dasbor','stok'].forEach(x=>{$(x).hidden=x!==n;$('t-'+x).classList.toggle('on',x===n)})}
+function isi(t){$('inp').value=t;proses()}
+function proses(){const t=$('inp').value.trim();if(!t)return;msg='';draft=parse(t);renderDraft()}
+function ubah(i,d){draft[i].q+=d;if(draft[i].q<1)draft.splice(i,1);if(!draft.length)draft=null;renderDraft()}
+function batal(){draft=null;msg='';renderDraft()}
+function simpan(){draft.forEach(d=>{S.sold[d.id]=(S.sold[d.id]||0)+d.q});S.log.unshift({t:Date.now(),items:draft});S.log=S.log.slice(0,8);
+draft=null;$('inp').value='';msg='Tersimpan. Stok dan dasbor sudah diperbarui.';save();renderAll()}
+function belanja(id,n){S.restock[id]=(S.restock[id]||0)+n;save();renderAll()}
+function reset(){S={day:td,sold:{},restock:{},log:[]};draft=null;msg='';save();renderAll()}
+function mic(){const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return;
+try{const r=new R();r.lang='id-ID';r.onresult=e=>{$('inp').value=e.results[0][0].transcript;proses()};r.start()}catch(e){}}
+
+function renderDraft(){const el=$('draft');
+if(msg){el.innerHTML='<p class="msg">'+msg+'</p>';return}
+if(draft===null){el.innerHTML='';return}
+if(!draft.length){el.innerHTML='<p class="mute">Belum ada barang yang dikenali. Sebut nama barang dan jumlahnya, misalnya "3 gula, 2 kopi".</p>';return}
+const tot=draft.reduce((a,d)=>a+d.q*prod(d.id).h,0);
+el.innerHTML='<h3>Cek dulu sebelum disimpan</h3>'+draft.map((d,i)=>{const p=prod(d.id);
+return `<div class="row"><div>${p.n}<div class="mute">${rp(p.h)} per ${p.u}</div></div><div class="qty"><button class="sm" onclick="ubah(${i},-1)" aria-label="Kurangi">−</button><b>${d.q}</b><button class="sm" onclick="ubah(${i},1)" aria-label="Tambah">+</button></div><div class="amt">${rp(d.q*p.h)}</div></div>`}).join('')
++`<div class="row"><b>Total</b><b>${rp(tot)}</b></div><div class="acts"><button class="pri" onclick="simpan()">Simpan penjualan</button><button onclick="batal()">Batal</button></div>`}
+
+function renderLog(){$('log').innerHTML=S.log.length?S.log.map(l=>`<div class="row"><div>${l.items.map(x=>x.q+' '+prod(x.id).n).join(', ')}</div><div class="mute">${new Date(l.t).toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})}</div></div>`).join(''):'<p class="mute" style="margin:0">Belum ada catatan hari ini. Tulis penjualan pertama di atas.</p>'}
+
+let summary='';
+function renderDash(){
+const days=[];for(let i=0;i<7;i++){const t=P.reduce((a,p)=>a+(i<6?p.hist[i+1]:sold(p))*p.h,0);const d=new Date();d.setDate(d.getDate()-(6-i));days.push({t,l:i==6?'Hari ini':d.toLocaleDateString('id-ID',{weekday:'short'})})}
+const max=Math.max(...days.map(d=>d.t),1),wk=days.reduce((a,d)=>a+d.t,0),profit=P.reduce((a,p)=>a+wkQty(p)*(p.h-p.m),0);
+$('stats').innerHTML=[['Omzet hari ini',days[6].t],['Omzet 7 hari',wk],['Perkiraan laba 7 hari',profit]].map(x=>`<div class="stat"><span class="mute">${x[0]}</span><b>${rp(x[1])}</b></div>`).join('');
+$('chart').innerHTML=days.map((d,i)=>`<div class="col${i==6?' t':''}"><span>${Math.round(d.t/1000)}rb</span><div class="bar" style="height:${Math.round(d.t/max*100)}px"></div><span>${d.l}</span></div>`).join('');
+const top=P.map(p=>({p,v:wkQty(p)*p.h})).sort((a,b)=>b.v-a.v).slice(0,5);
+$('top').innerHTML=top.map(x=>`<div class="top"><div><span>${x.p.n}</span><span class="mute">${rp(x.v)}</span></div><div class="tb" style="width:${Math.round(x.v/top[0].v*100)}%"></div></div>`).join('');
+const need=P.filter(p=>info(p).st[0]!='ok').map(p=>`${p.n} (±${info(p).rec} ${p.u})`);
+summary=`Minggu ini omzet warung ${rp(wk)} dengan perkiraan laba ${rp(profit)}. Barang terlaris: ${top.slice(0,3).map(x=>x.p.n).join(', ')}. `+(need.length?`Perlu segera belanja: ${need.join(', ')}.`:'Stok aman untuk beberapa hari ke depan.');
+$('sum').textContent=summary}
+async function salin(){try{await navigator.clipboard.writeText(summary);$('cp').textContent='Tersalin'}catch(e){$('cp').textContent='Salin manual dari teks di atas'}}
+
+function renderStok(){$('stokList').innerHTML=[...P].sort((a,b)=>info(a).d-info(b).d).map(p=>{const i=info(p);
+return `<div class="row"><div><b>${p.n}</b><div class="mute">Sisa ${i.s} ${p.u}, cukup ${i.d<1?'kurang dari 1':'sekitar '+Math.floor(i.d)} hari</div>${i.rec?`<div>Belanja <span class="mark">±${i.rec} ${p.u}</span></div>`:''}</div><div class="end"><span class="bd b-${i.st[0]}">${i.st[1]}</span>${i.rec?`<div style="margin-top:6px"><button class="sm" onclick="belanja('${p.id}',${i.rec})">Sudah belanja</button></div>`:''}</div></div>`}).join('')}
+
+function renderAll(){renderDraft();renderLog();renderDash();renderStok()}
+if(!(window.SpeechRecognition||window.webkitSpeechRecognition))$('mic').hidden=true;
+renderAll();
+</script></body></html>
